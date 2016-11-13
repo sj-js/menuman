@@ -1,0 +1,32 @@
+{
+  "name": "menuman",
+  "description": "menuman",
+  "main": "dist/js/menuman.min.js",
+  "authors": [
+    "SJ <souljungkim@gmail.com>"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "menuman",
+    "context",
+    "box",
+    "contextmenu",
+    "right click",
+    "menu"
+  ],
+  "homepage": "https://github.com/souljungkim/menuman",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "bower.json",
+    "gulpfile.js",
+    "package.json",
+    "src",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "crossman": "*"
+  }
+}

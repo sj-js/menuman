@@ -1,0 +1,46 @@
+/* Theme - Default*/
+div[data-theme=none].menuman-menu-board {
+	display:block;
+	border:1px solid #EEEEEE;
+	background:#DDDDDD;
+	width:200px;
+	text-align:center;
+}
+
+div[data-theme=none].menuman-menu-board .menuman-menu {
+	display:inline-block;
+	border:0px solid;
+	background:#AAAAAA;
+	width:99%; height:20px;
+	margin:1px;
+	text-align:left;
+	cursor:pointer
+}
+
+div[data-theme=none] > .menuman-menu:hover {
+	background:white;
+}
+
+
+/* Theme - test */
+div[data-theme=hi].menuman-menu-board {
+	display:block;
+	border:1px solid #ee99ff;
+	background:skyblue;
+	width:200px;
+	text-align:center;
+}
+
+div[data-theme=hi].menuman-menu-board .menuman-menu {
+	display:inline-block;
+	border:0px solid;
+	background:#AAAAAA;
+	width:99%; height:20px;
+	margin:1px;
+	text-align:left;
+	cursor:pointer
+}
+
+div[data-theme=hi] > .menuman-menu:hover {
+	background:#dddddd;
+}
