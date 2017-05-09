@@ -2,18 +2,9 @@
   "name": "menuman",
   "description": "menuman",
   "main": "dist/js/menuman.min.js",
-  "authors": [
-    "SJ <souljungkim@gmail.com>"
-  ],
+  "authors": ["SJ <souljungkim@gmail.com>"],
   "license": "MIT",
-  "keywords": [
-    "menuman",
-    "context",
-    "box",
-    "contextmenu",
-    "right click",
-    "menu"
-  ],
+  "keywords": ["menuman", "context", "box", "contextmenu", "right click", "menu"],
   "homepage": "https://github.com/souljungkim/menuman",
   "ignore": [
     "**/.*",

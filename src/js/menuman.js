@@ -62,18 +62,18 @@ MenuMan.prototype.handleOpenContextMenu = function(event){
         if (this.isMatch(this.target, menuBoard.conObj)){            
             this.nowSelectedElement = this.target;
             this.showMenuBoard(menuBoard.menus);
-
             return 
         }
     }    
 };
 MenuMan.prototype.handleCloseContextMenu = function(){
-    if (this.menuBoardEl){
+    if (this.isShown && this.menuBoardEl){        
         var menuBoardEl = this.menuBoardEl;
         while (menuBoardEl.firstChild){
             menuBoardEl.removeChild(menuBoardEl.firstChild);
         }
-        this.menuBoardEl.style.display = 'none';
+        menuBoardEl.style.zIndex = 0;
+        menuBoardEl.style.display = 'none';
     }
     this.nowSelectedObjId = '';
     this.isShown = false;
@@ -124,8 +124,10 @@ MenuMan.prototype.isMatch = function(el, conObj){
 
 
 MenuMan.prototype.showMenuBoard = function(menuList){
-    var that = this;    
+    var that = this;
     var menus = this.menus;
+    if (this.isShown)
+        that.handleCloseContextMenu();
     // Create MenuBoard Element
     if (!this.menuBoardEl)
         this.menuBoardEl = getNewEl('div', '', 'menuman-menu-board', {}, '');
@@ -133,7 +135,7 @@ MenuMan.prototype.showMenuBoard = function(menuList){
     // Set Theme
     if (!this.theme)
         this.theme = "none";
-    menuBoardEl.setAttribute('data-theme', this.theme);    
+    menuBoardEl.setAttribute('data-theme', this.theme);
     // Set Menus
     for (var i=0; i<menuList.length; i++){
         var menuNm = menuList[i];
@@ -148,7 +150,9 @@ MenuMan.prototype.showMenuBoard = function(menuList){
         menuBoardEl.style.display = 'block';
         menuBoardEl.style.position = 'absolute';
         menuBoardEl.style.left = this.lastPosX + 12 +'px';
-        menuBoardEl.style.top = this.lastPosY + 2 +'px';                
+        menuBoardEl.style.top = this.lastPosY + 2 +'px';        
+        menuBoardEl.style.zIndex = getData().findHighestZIndex(['div']);
+        console.log(menuBoardEl.style.zIndex);
         getEl(document.body).add(menuBoardEl);        
     }else{
         console.log('is not supported');
