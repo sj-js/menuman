@@ -114,10 +114,10 @@ MenuMan.prototype.setPos = function(event){
 
 MenuMan.prototype.isMatch = function(el, conObj){
     var isOk = false;    
-    isOk = getEl(el).find(conObj);
-    // console.log ("find:" + isOk);
-    isOk = getEl(el).findDomDataAttribute(conObj);
-    // console.log ("findDomAttr:" + isOk);
+    // isOk = getEl(el).find(conObj);
+    // console.log ("find:", conObj, isOk);
+    isOk = getEl(el).findDomAttribute(conObj);
+    console.log ("findDomAttr:",conObj, isOk);
     return isOk;
 };
 
@@ -151,9 +151,9 @@ MenuMan.prototype.showMenuBoard = function(menuList){
         menuBoardEl.style.position = 'absolute';
         menuBoardEl.style.left = this.lastPosX + 12 +'px';
         menuBoardEl.style.top = this.lastPosY + 2 +'px';        
-        menuBoardEl.style.zIndex = getData().findHighestZIndex(['div']);
-        console.log(menuBoardEl.style.zIndex);
-        getEl(document.body).add(menuBoardEl);        
+        menuBoardEl.style.zIndex = getData().findHighestZIndex(['div']) +1;
+        console.debug(menuBoardEl.style.zIndex);
+        getEl(document.body).add(menuBoardEl);
     }else{
         console.log('is not supported');
     }    
