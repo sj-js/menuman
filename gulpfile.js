@@ -78,7 +78,7 @@ gulp.task('js', ['clean-js'], function(){
         .pipe(concat(package.name +'.js'))
         .pipe(gulp.dest(paths.dest.js))
         .pipe(stripDebug())
-        .pipe(uglify({mangle:{toplevel:true}}))
+        .pipe(uglify({mangle:{toplevel:false}}))
         .pipe(rename({suffix:fileSuffix}))
         .pipe(gulp.dest(paths.dest.js));
 });
@@ -156,5 +156,6 @@ gulp.task('run', shell.task([
 gulp.task('default.bak', ['server','js','css','res','html','watch', 'shell']);
 gulp.task('bower', ['bower-install','bower-update']);
 gulp.task('build', ['js','css','res','html']);
-gulp.task('default', ['run','build','watch']);
+gulp.task('default', ['build']);
+gulp.task('start', ['run','build','watch']);
 gulp.task('dev', ['js','css','res','html','watch']);
