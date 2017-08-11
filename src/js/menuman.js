@@ -13,12 +13,20 @@ function MenuMan(el){
     this.target;
     this.lastPosX;
     this.lastPosY;
-
+    //Open ContextMenu By Mouse [Right Click]
     window.addEventListener('contextmenu', function(event){
         that.handleOpenContextMenu(event);
     });
-    window.addEventListener('mousedown', function(event){        
+    //Close ContextMenu By Mouse [Click]
+    window.addEventListener('mousedown', function(event){
         that.handleCloseContextMenu(event);
+    });
+    //Close ContextMenu By Key [ESC]
+    getEl(document).addEventListener('keydown', function(event){
+        var keyCode = (event.keyCode) ? event.keyCode : event.which;
+        if (keyCode == 27){ //[ESC] => Close Latest Index Pop
+            that.handleCloseContextMenu(event);
+        }
     });
 }
 MenuMan.prototype.setTheme = function(themeStr){
@@ -49,8 +57,8 @@ MenuMan.prototype.handleOpenContextMenu = function(event){
     var menuBoards = this.menuBoards;
     ///// Only Mouse Right
     if ((event.which && event.which==3) || (event.button && event.button==2)){
-        event.preventDefault();
-        event.stopPropagation();
+        // event.preventDefault();
+        // event.stopPropagation();
     }else{
         return false;
     }     
@@ -59,7 +67,9 @@ MenuMan.prototype.handleOpenContextMenu = function(event){
     ///// Condition Check
     for (var nm in menuBoards){
         var menuBoard = menuBoards[nm];
-        if (this.isMatch(this.target, menuBoard.conObj)){            
+        if (this.isMatch(this.target, menuBoard.conObj)){
+            event.preventDefault();
+            event.stopPropagation();
             this.nowSelectedElement = this.target;
             this.showMenuBoard(menuBoard.menus);
             return 
@@ -91,21 +101,22 @@ MenuMan.prototype.setPos = function(event){
     if (event.touches != undefined){
         this.lastPosX = event.touches[0].pageX;
         this.lastPosY = event.touches[0].pageY;
+    /* Web Control */
     }else{
-        /* Web Control */
         // this.lastPosX = event.clientX + sjHelper.cross.getBodyScrollX();
         // this.lastPosY = event.clientY + sjHelper.cross.getBodyScrollY();
         this.lastPosX = event.clientX;
         this.lastPosY = event.clientY;
     }
-    
+
     /* Mobile Control */
     if (event.touches != undefined){
-        if (timerTime >= 3) event.preventDefault();
+        if (timerTime >= 3)
+            event.preventDefault();
         this.target = event.touches[0].target;
+    /* Web Control */
     }else{
-        /* Web Control */
-        event.preventDefault();
+        // event.preventDefault();
         this.target = event.target;
     }
 };
@@ -130,7 +141,7 @@ MenuMan.prototype.showMenuBoard = function(menuList){
         that.handleCloseContextMenu();
     // Create MenuBoard Element
     if (!this.menuBoardEl)
-        this.menuBoardEl = getNewEl('div', '', 'menuman-menu-board', {}, '');
+        this.menuBoardEl = newEl('div', {'class':'menuman-menu-board'}, '');
     var menuBoardEl = this.menuBoardEl;
     // Set Theme
     if (!this.theme)
@@ -161,16 +172,17 @@ MenuMan.prototype.showMenuBoard = function(menuList){
 
 MenuMan.prototype.getNewMenuEl = function(name){
     var that = this;
-    var menuEl = getNewEl('div', '', 'menuman-menu', {}, name);
-    menuEl.addEventListener('mousedown', function(event){
+    var menuElement = newEl('div', {'class':'menuman-menu'}, name);
+    menuElement.addEventListener('mousedown', function(event){
         event.preventDefault();
         event.stopPropagation();
         // var sjid = this.nowSelectedObjId;
         // var obj = that.get(sjid);        
         var nowSelectedElement = that.nowSelectedElement;
-        that.handleCloseContextMenu();            
+        console.log('nowSelectedElement', nowSelectedElement);
+        that.handleCloseContextMenu();
         that.menus[name].func(nowSelectedElement);        
     });    
-    return menuEl;
+    return menuElement;
 };
 
