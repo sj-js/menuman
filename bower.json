@@ -5,7 +5,7 @@
   "authors": ["SJ <souljungkim@gmail.com>"],
   "license": "MIT",
   "keywords": ["menuman", "context", "box", "contextmenu", "right click", "menu"],
-  "homepage": "https://github.com/souljungkim/menuman",
+  "homepage": "https://github.com/sj-js/menuman",
   "ignore": [
     "**/.*",
     "node_modules",
