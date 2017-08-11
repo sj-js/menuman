@@ -1,6 +1,8 @@
-/* Theme - Default*/
+/*************************
+ * Theme - Default
+ *************************/
 
-div[data-theme=none].menuman-menu-board {
+div.menuman-menu-board {
   display: block;
   border: 1px solid #EEEEEE;
   background: #DDDDDD;
@@ -8,7 +10,7 @@ div[data-theme=none].menuman-menu-board {
   text-align: center;
 }
 
-div[data-theme=none].menuman-menu-board .menuman-menu {
+div.menuman-menu-board .menuman-menu {
   display: inline-block;
   border: 0px solid;
   background: #AAAAAA;
@@ -19,11 +21,13 @@ div[data-theme=none].menuman-menu-board .menuman-menu {
   cursor: pointer;
 }
 
-div[data-theme=none] > .menuman-menu:hover {
+div > .menuman-menu:hover {
   background: white;
 }
 
-/* Theme - test */
+/*************************
+ * Theme - Test
+ *************************/
 
 div[data-theme=hi].menuman-menu-board {
   display: block;
