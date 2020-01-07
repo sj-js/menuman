@@ -1,3 +1,18 @@
+/***************************************************************************
+ * [Node.js] import
+ ***************************************************************************/
+try{
+    var crossman = require('@sj-js/crossman');
+    var ready = crossman.ready,
+        getEl = crossman.getEl,
+        newEl = crossman.newEl,
+        getData = crossman.getData,
+        SjEvent = crossman.SjEvent
+    ;
+}catch(e){}
+
+
+
 function MenuMan(el){
     var that = this;    
 
@@ -29,8 +44,20 @@ function MenuMan(el){
         }
     });
 }
+
+
+/***************************************************************************
+ * [Node.js] exports
+ ***************************************************************************/
+try {
+    module.exports = exports = MenuMan;
+} catch (e) {}
+
+
+
+
 MenuMan.prototype.setTheme = function(themeStr){
-    this.theme= themeStr;
+    this.theme = themeStr;
     return this;
 };
 MenuMan.prototype.addMenuBoard = function(name, conObj, menus){
@@ -40,9 +67,9 @@ MenuMan.prototype.addMenuBoard = function(name, conObj, menus){
     };
     return this;
 };
-MenuMan.prototype.addMenu = function(name, func){    
-    this.menus[name] = {
-        el: this.getNewMenuEl(name),
+MenuMan.prototype.addMenu = function(id, html, func){
+    this.menus[id] = {
+        el: this.getNewMenuEl(id, html),
         func: func
     };
     return this;
@@ -128,7 +155,7 @@ MenuMan.prototype.isMatch = function(el, conObj){
     // isOk = getEl(el).find(conObj);
     // console.log ("find:", conObj, isOk);
     isOk = getEl(el).findDomAttribute(conObj);
-    console.log ("findDomAttr:",conObj, isOk);
+    // console.log("findDomAttr:", conObj, isOk);
     return isOk;
 };
 
@@ -140,8 +167,14 @@ MenuMan.prototype.showMenuBoard = function(menuList){
     if (this.isShown)
         that.handleCloseContextMenu();
     // Create MenuBoard Element
-    if (!this.menuBoardEl)
-        this.menuBoardEl = newEl('div', {'class':'menuman-menu-board'}, '');
+    if (!this.menuBoardEl){
+        this.menuBoardEl = newEl('div').addClass('menuman-menu-board')
+            .addEventListener('mousewheel', function(e){
+                e.preventDefault();
+                e.stopPropagation();
+            })
+            .returnElement();
+    }
     var menuBoardEl = this.menuBoardEl;
     // Set Theme
     if (!this.theme)
@@ -163,26 +196,28 @@ MenuMan.prototype.showMenuBoard = function(menuList){
         menuBoardEl.style.left = this.lastPosX + 12 +'px';
         menuBoardEl.style.top = this.lastPosY + 2 +'px';        
         menuBoardEl.style.zIndex = getData().findHighestZIndex(['div']) +1;
-        console.debug(menuBoardEl.style.zIndex);
+        // console.debug(menuBoardEl.style.zIndex);
         getEl(document.body).add(menuBoardEl);
     }else{
         console.log('is not supported');
     }    
 };
 
-MenuMan.prototype.getNewMenuEl = function(name){
+MenuMan.prototype.getNewMenuEl = function(id, html){
     var that = this;
-    var menuElement = newEl('div', {'class':'menuman-menu'}, name);
-    menuElement.addEventListener('mousedown', function(event){
-        event.preventDefault();
-        event.stopPropagation();
-        // var sjid = this.nowSelectedObjId;
-        // var obj = that.get(sjid);        
-        var nowSelectedElement = that.nowSelectedElement;
-        console.log('nowSelectedElement', nowSelectedElement);
-        that.handleCloseContextMenu();
-        that.menus[name].func(nowSelectedElement);        
-    });    
+    var menuElement = newEl('div').addClass('menuman-menu')
+        .html(html)
+        .addEventListener('mousedown', function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            // var sjid = this.nowSelectedObjId;
+            // var obj = that.get(sjid);
+            var nowSelectedElement = that.nowSelectedElement;
+            console.log('nowSelectedElement', nowSelectedElement);
+            that.handleCloseContextMenu();
+            that.menus[id].func(nowSelectedElement);
+        })
+        .returnElement();
     return menuElement;
 };
 

@@ -54,62 +54,66 @@ var paths = {
  *************************/
 /** clean **/
 gulp.task('clean-js', function(){
-    return gulp.src(paths.dest.js)
+    return gulp.src(paths.dest.js, {allowEmpty:true})
         .pipe(clean());
 });
 gulp.task('clean-css', function(){
-    return gulp.src(paths.dest.css)
+    return gulp.src(paths.dest.css, {allowEmpty:true})
         .pipe(clean());
 });
 gulp.task('clean-html', function(){
-    return gulp.src(paths.dest.html)
+    return gulp.src(paths.dest.html, {allowEmpty:true})
         .pipe(clean());
 });
 gulp.task('clean-res', function(){
-    return gulp.src(paths.dest.res)
+    return gulp.src(paths.dest.res, {allowEmpty:true})
         .pipe(clean());
 });
 
+/** Before **/
+var packageName = package.name;
+var indexForSlash = packageName.indexOf('/');
+var packageFileName = (indexForSlash > 0) ? packageName.substring(indexForSlash +1) : package.name;
+
 /** js **/
-gulp.task('js', ['clean-js'], function(){
+gulp.task('js', function(){
     return gulp.src(paths.src.js)
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'))
-        .pipe(concat(package.name +'.js'))
-        .pipe(gulp.dest(paths.dest.js))
-        .pipe(stripDebug())
-        .pipe(uglify({mangle:{toplevel:false}}))
-        .pipe(rename({suffix:fileSuffix}))
-        .pipe(gulp.dest(paths.dest.js));
+            .pipe(jshint())
+            .pipe(jshint.reporter('default'))
+            .pipe(concat(packageFileName +'.js'))
+            .pipe(gulp.dest(paths.dest.js))
+            .pipe(stripDebug())
+            .pipe(uglify({mangle:{toplevel:false}}))
+            .pipe(rename({suffix:fileSuffix}))
+            .pipe(gulp.dest(paths.dest.js));
 });
 
 /** css **/
-gulp.task('css', ['clean-css'], function(){
+gulp.task('css', function(){
     return gulp.src(paths.src.css)
-        .pipe(csslint())
-        .pipe(csslint.reporter())
-        .pipe(concatcss(package.name +'.css'))
-        .pipe(gulp.dest(paths.dest.css))
-        .pipe(uglifycss())
-        .pipe(rename({suffix:fileSuffix}))
-        .pipe(gulp.dest(paths.dest.css));
+            .pipe(csslint())
+            .pipe(csslint.formatter("compact"))
+            .pipe(concatcss(packageFileName +'.css'))
+            .pipe(gulp.dest(paths.dest.css))
+            .pipe(uglifycss())
+            .pipe(rename({suffix:fileSuffix}))
+            .pipe(gulp.dest(paths.dest.css));
 });
 
 /** res **/
-gulp.task('res', ['clean-res'], function(){
+gulp.task('res', function(){
     return gulp.src(paths.src.res)
         .pipe(gulp.dest(paths.dest.res));
 });
 
 /** html **/
-gulp.task('html', ['clean-html'], function(){
+gulp.task('html', function(){
     return gulp.src(paths.src.html)
         .pipe(minifyhtml())
         .pipe(gulp.dest(paths.dest.html));
 });
 
-
-
+/** server **/
 // 웹서버를 localhost:8000 로 실행한다.
 gulp.task('server', function(){
     return gulp.src(dest + '/')
@@ -117,6 +121,8 @@ gulp.task('server', function(){
 });
 
 
+
+/** watch **/
 // 파일 변경 감지 및 브라우저 재시작
 gulp.task('watch', function () {
     livereload.listen();
@@ -128,7 +134,7 @@ gulp.task('watch', function () {
 });
 
 
-// Bower
+/** bower **/
 gulp.task('bower-install', function(){
     return bower();
 });
@@ -139,7 +145,7 @@ gulp.task('bower-update', function(){
 
 
 
-
+/** shell **/
 // 마지막으로 원하는 쉘을 실행!
 gulp.task('shell', shell.task([
     'echo "Lets Start Development"',
@@ -153,9 +159,15 @@ gulp.task('run', shell.task([
 
 
 //기본 task 설정
-gulp.task('default.bak', ['server','js','css','res','html','watch', 'shell']);
-gulp.task('bower', ['bower-install','bower-update']);
-gulp.task('build', ['js','css','res','html']);
-gulp.task('default', ['build']);
-gulp.task('start', ['run','build','watch']);
-gulp.task('dev', ['js','css','res','html','watch']);
+
+gulp.task('clean', gulp.parallel('clean-js', 'clean-css', 'clean-html', 'clean-res'));
+
+gulp.task('build', gulp.series('clean', gulp.parallel('js','css','res','html')));
+
+gulp.task('default', gulp.series('build'));
+
+
+
+
+gulp.task('start', gulp.series(['run','build','watch']));
+gulp.task('dev', gulp.series(['js','css','res','html','watch']));
