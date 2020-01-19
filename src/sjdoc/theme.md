@@ -1,25 +1,9 @@
 # Theme
 각종 예제  
         
-        
-        
-```js
-menuman.addMenuBoard('jelly-icon', [{'class':'*jelly*'}], ['icon-setup-runner', 'icon-enable', 'icon-disable', 'icon-delete']);
-menuman.addMenu('icon-setup-runner', 'Setup Runner', function(element){
-    popman.pop(JellySpeaker.PluginIconManager.POP_ICON_MANAGER_SETUP_RUNNER, function(data){
+#### ※ 표
+코드 | 특징
+-----|--------|-----
+default | Box와 Obj 노드에 Border Style을 적용하여 육안으로 노드의 크기를 확인 가능하도록 합니다.  
+test-1 | Obj 노드가 이동되지 않고 복사됩니다.
 
-    });
-});
-menuman.addMenu('icon-enable', 'Enable', function(element){
-    icon.setModeEnable(true);
-});
-menuman.addMenu('icon-disable', 'Disable', function(element){
-    icon.setModeEnable(false);
-});
-menuman.addMenu('icon-delete', 'Delete', function(element){
-    popman.confirm('Are you sure to delete icon?' +icon.title, function(){
-        that.removeIcon(dbItem);
-        return true;
-    });
-});
-```
