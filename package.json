@@ -1,6 +1,6 @@
 {
   "name": "@sj-js/menuman",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "menuman",
   "main": "./index.js",
   "author": "souljungkim@gmail.com",
@@ -14,6 +14,9 @@
     "type": "git",
     "url": "https://github.com/sj-js/menuman.git",
     "web": "https://github.com/sj-js/menuman"
+  },
+  "dependencies": {
+    "@sj-js/crossman": "^1.0.4"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
