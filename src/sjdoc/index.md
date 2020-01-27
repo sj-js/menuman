@@ -26,7 +26,7 @@
 ### 1-1. How to load?
 - Browser
     ```html
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/css/menuman.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/menuman/dist/css/menuman.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/js/crossman.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@sj-js/menuman/dist/js/menuman.min.js"></script>
     <script>

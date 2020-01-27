@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <HTML>
     <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/boxman/dist/css/boxman.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/menuman/dist/css/menuman.min.css">
         <script src="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/js/crossman.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@sj-js/boxman/dist/js/boxman.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@sj-js/menuman/dist/js/menuman.min.js"></script>
         <script>
-            var boxman = new BoxMan();
+            var menuman = new MenuMan();
         </script>
     </head>
     <style>
-        div[data-box] { display:block; width:200px; min-height:30px;}
-        div[data-obj] { display:inline-block; min-width:50px; min-height:30px;}
-        div[data-box].test-a { background:pink; border:1px solid black; }
-        div[data-obj].test-a { background:deeppink; border:1px solid black; }
+        .test-style { display:inline-block; min-width:50px; height:30px; border:2px solid black; cursor:pointer; background:pink; }
     </style>
+
     <body>
-        Hello Boxman<br/>
+        <div class="test-style icon">Right Click - 1</div>
+        <div class="test-style icon">Right Click - 2</div>
+        <div id="test001" class="test-style">Right Click - 3</div>
+        <div id="test002" class="test-style">Right Click - 4</div>
     </body>
+
     <script>
-        boxman.setTheme('default');
-        boxman.newBox({content:'BOX A', class:'test-a'});
-        boxman.newBox({content:'BOX B'});
-        boxman.newObj({content:'A'});
-        boxman.newObj({content:'B'});
-        boxman.newObj({content:'C', class:'test-a'});
-        boxman.newObj({content:'G', class:'test-a'});
+        menuman.setTheme('test-1');
+        menuman.addMenu('menu-console', 'Console', function(element){
+            console.log('Hello  ' + element.innerHTML);
+        });
+        menuman.addMenu('menu-alert', 'Alert', function(element){
+            alert('Hello  ' + element.innerHTML);
+        });
+        menuman.addMenu('menu-nothing', 'Nothing', function(element){
+            //None
+        });
+        menuman.addMenu('menu-1', 'Print', function(element){
+            console.log('Print', element);
+        });
+        menuman.addMenuBoard('board-a', [{'class':'*icon*'}], ['menu-console', 'menu-alert']);
+        menuman.addMenuBoard('board-b', [{'id':'test001'}], ['menu-nothing']);
+        menuman.addMenuBoard('board-c', [{'id':'*02'}], ['menu-1']);
     </script>
 </HTML>
