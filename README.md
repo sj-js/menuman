@@ -1,4 +1,15 @@
-# menuman
+# MenuMan
+## 📃
+[![Build Status](https://travis-ci.org/sj-js/menuman.svg?branch=master)](https://travis-ci.org/sj-js/menuman)
+[![All Download](https://img.shields.io/github/downloads/sj-js/menuman/total.svg)](https://github.com/sj-js/menuman/releases)
+[![Release](https://img.shields.io/github/release/sj-js/menuman.svg)](https://github.com/sj-js/menuman/releases)
+[![License](https://img.shields.io/github/license/sj-js/menuman.svg)](https://github.com/sj-js/menuman/releases)
+
+- 쉽게 Context Menu를 구성할 수 있다.
+- `Menu`와 이를 조건별로 담을 수 있는 `MenuBoard`로 나뉩니다.
+- ✨ Source: https://github.com/sj-js/menuman
+- ✨ Document: https://sj-js.github.io/sj-js/menuman
+
 
 
 # 1. 컨텍스트 메뉴 

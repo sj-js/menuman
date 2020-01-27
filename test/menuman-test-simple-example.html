@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<HTML>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/boxman/dist/css/boxman.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/js/crossman.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@sj-js/boxman/dist/js/boxman.min.js"></script>
+        <script>
+            var boxman = new BoxMan();
+        </script>
+    </head>
+    <style>
+        div[data-box] { display:block; width:200px; min-height:30px;}
+        div[data-obj] { display:inline-block; min-width:50px; min-height:30px;}
+        div[data-box].test-a { background:pink; border:1px solid black; }
+        div[data-obj].test-a { background:deeppink; border:1px solid black; }
+    </style>
+    <body>
+        Hello Boxman<br/>
+    </body>
+    <script>
+        boxman.setTheme('default');
+        boxman.newBox({content:'BOX A', class:'test-a'});
+        boxman.newBox({content:'BOX B'});
+        boxman.newObj({content:'A'});
+        boxman.newObj({content:'B'});
+        boxman.newObj({content:'C', class:'test-a'});
+        boxman.newObj({content:'G', class:'test-a'});
+    </script>
+</HTML>

@@ -6,8 +6,9 @@
 [![License](https://img.shields.io/github/license/sj-js/menuman.svg)](https://github.com/sj-js/menuman/releases)
 
 - 쉽게 Context Menu를 구성할 수 있다.
-- Source: https://github.com/sj-js/menuman
-- Document: https://sj-js.github.io/sj-js/menuman
+- `Menu`와 이를 조건별로 담을 수 있는 `MenuBoard`로 나뉩니다.
+- ✨ Source: https://github.com/sj-js/menuman
+- ✨ Document: https://sj-js.github.io/sj-js/menuman
     
       
         
@@ -22,32 +23,47 @@
 
 ## 1. Getting Started
 
-### 1-1. How to use
+### 1-1. How to load?
+- Browser
+    ```html
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/css/menuman.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@sj-js/crossman/dist/js/crossman.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@sj-js/menuman/dist/js/menuman.min.js"></script>
+    <script>
+         var menuman = new MenuMan();
+    </script>
+    ```
+    *@* *+prefix* *x* *@* 
+    ```html
+    <link rel="stylesheet" href="../menuman/menuman.css">
+    <script src="../crossman/crossman.js"></script>
+    <script src="../menuman/menuman.js"></script>
+    <script>
+        var menuman = new MenuMan();
+    </script>
+    ```  
+- ES6+
+    ```bash
+    npm install @sj-js/menuman
+    ```
+    ```js
+    require('@sj-js/menuman/dist/css/menuman.css');
+    const MenuMan = require('@sj-js/menuman');
+    const menuman = new MenuMan();
+    ```
 
-1. Load library and new instance
-    - Browser
-        ```html
-        <script src="https://cdn.jsdelivr.net/gh/sj-js/crossman/dist/js/crossman.js"></script>
-        <script src="https://cdn.jsdelivr.net/gh/sj-js/menuman/dist/js/menuman.js"></script>
-        <script>
-             var menuman = new MenuMan();
-        </script>
-        ```  
-    - ES6+
-        ```bash
-        npm install @sj-js/menuman
-        ```
-        ```js
-        const MenuMan = require('@sj-js/menuman');
-        const menuman = new MenuMan();
-        ```
 
-2. .setTheme(CODE)
+
+### 1-2. Simple Example
+For convenience, 1-1 code, which loads and creates a Library in the example, is omitted.
+
+### Example A
+1. .setTheme(CODE)
     ```js
     menuman.setTheme('default');
     ```   
    
-3. .addMenu(ID, LABEL, EVENT)   
+2. .addMenu(ID, LABEL, EVENT)   
    ```js
    menuman.addMenu();
    menuman.addMenu('MENU_ID_1', 'MENU_LABEL', function(element){
@@ -58,35 +74,12 @@
    });
    ```
    
-4. .addMenuBoard(ID, CONDITION, MENU_ID_LIST)    
+3. .addMenuBoard(ID, CONDITION, MENU_ID_LIST)    
    ```js
    menuman.addMenuBoard('BOARD_ID_1', {'id':'icon-*'}, ['MENU_ID_1', 'MENU_ID_2']);
    ```
-
-
-
-### 1-2. Simple Example
-- For convenience, the following code, which loads and creates a Library in the example, is omitted.
-    ```html
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sj-js/menuman/dist/css/menuman.css">
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/crossman/dist/js/crossman.js"></script>
-    <script src="https://cdn.jsdelivr.net/gh/sj-js/menuman/dist/js/menuman.js"></script>
-    <script>
-         var menuman = new MenuMan();
-    </script>
-    ```
-  
-    *@* *+prefix* *x* *@* 
-    ```html
-    <link rel="stylesheet" href="../menuman/menuman.css">
-    <script src="../crossman/crossman.js"></script>
-    <script src="../menuman/menuman.js"></script>
-    <script>
-         var menuman = new MenuMan();
-    </script>
-    ```    
-
-- Example A
+   
+4. 👨‍💻
     *@* *!* *@*
     ```html
     <style>
@@ -118,4 +111,4 @@
         menuman.addMenuBoard('board-b', [{'id':'test001'}], ['menu-nothing']);
         menuman.addMenuBoard('board-c', [{'id':'*02'}], ['menu-1']);
     </script>
-    ``` 
+    ```

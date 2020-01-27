@@ -56,8 +56,8 @@ try {
 
 
 
-MenuMan.prototype.setTheme = function(themeStr){
-    this.theme = themeStr;
+MenuMan.prototype.setTheme = function(themeName){
+    this.theme = themeName;
     return this;
 };
 MenuMan.prototype.addMenuBoard = function(name, conObj, menus){
