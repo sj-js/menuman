@@ -67,7 +67,10 @@
             </script>
         </head>
         <style>
-            .test-style { display:inline-block; min-width:50px; height:30px; border:2px solid black; cursor:pointer; background:pink; }
+            .test-style { 
+                display:inline-block; min-width:50px; height:30px; border:2px solid black; cursor:pointer; background:pink;
+                -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none; 
+            }
         </style>
     
         <body>
