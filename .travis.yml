@@ -12,23 +12,24 @@ cache:
     - "node_modules"
 
 before_deploy:
+  - npm install
   - pwd
   - ls dist/js/
-  
+
 deploy:
   - provider: releases
+    edge: true
     api_key:
       secure: "Zhyu9D3utjrEQGst0FEtzydXQYUGR4TYDkjSx/JNvdmtziSfJS/7BCH19ao5MYLbdrHZdzOba3mgkDX50ZW4f96hTLAQ3VxiZ5c+faupfMCSBGbfzpW6VuqVMP8x86MayIp8tUUO35yMAPXTBfGZZ/k3nw4owkg3nR2eBRdEpM6sMBjNem38sfR2O815/S14EFC6xoCBAIf2z/HrsEw9o962ZuANBHqlj7AaJ8nBl4wkPnENLMI6Sszm23YI8N7pfqbio1qXwwtGnB8QL8o5X+YKqzy7CuIe58ttv3Dso/5Yj01LgUwQaTWoC30+zV6pFW0TbjyA4foo6FDTLigeH5zYWRz7O+fpMGVHH6LB0Sm8ezdcBpM99Rx9gka/ZzyW7h3HiDAET9pUxwUErefo6i9ENssxYNI1C/E5WQ1/MZt/v5PGqfHy0se/2gL/BKg3+dHOulJQ0S7mjrTVYQY11oEZqoHyI6wX0hEYYUh9Sie+xbdQfLI47aJRYgxDjrZVEzOa4nziWbSGTE1bvwdPYXp46v02T5uCPhKIm1DkAG9cAy9fQNDSA8qiMiyct+L9YfBHxCO3FPDkD1yXFXYHx2UTiyV4KbziTS2SigBDtd7GUKU+7hIIaTYh7IJb+uOnZLAd4rhQYayoPJr2qqZgR4C38SdTw2xUpAPx5AtMc/M="
     file:
       - dist/js/menuman.min.js
       - dist/css/menuman.min.css
-    skip_cleanup: true
     on:
       repo: sj-js/menuman
       branch: master
   - provider: npm
+    edge: true
     email: "$NPM_EMAIL"
     api_key: "$NPM_API_TOKEN"
-    skip_cleanup: true
     on:
       branch: master
