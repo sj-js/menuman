@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../../crossman/src/js/crossman.js"></script>
+    <script src="../src/js/menuman.js"></script>
+    <link rel="stylesheet" href="../src/css/menuman.css">
+    <style>
+        .test-style {
+            display:inline-block; min-width:50px; height:30px; border:2px solid black; cursor:pointer; background:pink;
+            -moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;
+        }
+    </style>
+    <script>
+        var menuman = new MenuMan();
+
+        menuman.setTheme('test-1');
+
+        menuman.add(
+            new MenuMan.Menu('menu-console').setTitle('console')
+                .setRunHandler(function(event){
+                    console.log('console ~');
+                }),
+
+            new MenuMan.Menu('menu-alert').setTitle('alert')
+                .setRunHandler(function(event){
+                    alert('alert ~');
+                }),
+
+            new MenuMan.Menu('menu-nothing').setTitle('nothing')
+                .setRunHandler(function(event){
+                    //none
+                }),
+
+            new MenuMan.Menu('menu-sometimes-disabled').setTitle('some-time disabled')
+                .setDisabledStateHandler(function(event){
+                    return !!(new Date().getTime() % 2)
+                })
+                .setRunHandler(function(event){
+                    alert("You are lucky :D");
+                }),
+
+            new MenuMan.Menu('menu-sometimes-show').setTitle('some-time show')
+                .setBoardLoadValidateHandler(function(event){
+                    return !!(new Date().getTime() % 2)
+                })
+                .setRunHandler(function(event){
+                    alert("You are lucky :D");
+                }),
+
+            new MenuMan.Menu('menu-search').setTitle('search something')
+                .setBoardLoadValidateHandler(function(event){
+                    console.log("[Check selection-text]", menuman.getSelectionText());
+                    return menuman.getSelectionText() != '';
+                })
+                .setBoardLoadHandler(function(event){
+                    var text = menuman.getSelectionText();
+                    text = (text.length < 20) ? text : (text.substring(0,17) + "...");
+                    event.menu.element.innerHTML = ('🔍 search \'' +text+ '\'');
+                })
+                .setRunHandler(function(event){
+                    //none
+                    alert("Faield to search '"+menuman.getSelectionText()+"'. \nIt is not yet implemented.")
+                }),
+
+            new MenuMan.MenuBoard('board-a').setMenus('menu-console', 'menu-alert').setElementMatchCondition([{'class':'*icon*'}]),
+            new MenuMan.MenuBoard('board-b').setMenus('menu-nothing').setElementMatchCondition([{'id':'test001'}]),
+            new MenuMan.MenuBoard('board-c').setMenus('menu-non-exsits').setElementMatchCondition([{'id':'*02'}]),
+            new MenuMan.MenuBoard('first_ctx').setPriority(1).setMenus('menu-sometimes-show'),
+            new MenuMan.MenuBoard('second_ctx').setPriority(2).setMenus('menu-search', 'menu-alert', 'menu-sometimes-show', 'menu-sometimes-disabled'),
+        );
+    </script>
+</head>
+<body>
+
+    <div class="test-style icon">Right Click - 1</div>
+    <div class="test-style icon">Right Click - 2</div>
+    <div id="test001" class="test-style">Right Click - 3</div>
+    <div id="test002" class="test-style">Right Click - 4</div>
+
+    <pre>
+        Hello this is menuman.
+        What?
+        What is menuman??
+        super nice library to consist menu.
+        Really? that's cool!!
+    </pre>
+</body>
+</html>
