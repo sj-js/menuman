@@ -1,6 +1,7 @@
 # MenuMan
 ## 📃
 [![Build Status](https://travis-ci.org/sj-js/menuman.svg?branch=master)](https://travis-ci.org/sj-js/menuman)
+[![Coverage Status](https://coveralls.io/repos/github/sj-js/keyman/badge.svg)](https://coveralls.io/github/sj-js/keyman)
 [![All Download](https://img.shields.io/github/downloads/sj-js/menuman/total.svg)](https://github.com/sj-js/menuman/releases)
 [![Release](https://img.shields.io/github/release/sj-js/menuman.svg)](https://github.com/sj-js/menuman/releases)
 [![License](https://img.shields.io/github/license/sj-js/menuman.svg)](https://github.com/sj-js/menuman/releases)

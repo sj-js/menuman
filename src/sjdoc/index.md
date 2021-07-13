@@ -16,6 +16,8 @@
 *@* **order** *@*
 ```
 - MenuMan
+- Menu
+- MenuBoard
 - Theme
 - Example
 ```
@@ -65,13 +67,18 @@ For convenience, 1-1 code, which loads and creates a Library in the example, is 
    
 2. .addMenu(ID, LABEL, EVENT)   
    ```js
-   menuman.addMenu();
-   menuman.addMenu('MENU_ID_1', 'MENU_LABEL', function(element){
-       //SOMETHING TO DO
-   });
-   menuman.addMenu('MENU_ID_2', 'MENU_LABEL', function(element){
-      //SOMETHING TO DO 
-   });
+   menuman.addMenu(
+            new MenuMan.Menu('menu-test-console').setTitle('Test console')
+                .setRunHandler(function(event){
+                    //SOMETHING TO DO
+                    console.log('console ~');
+                }),
+            new MenuMan.Menu('menu-test-alert').setTitle('Test alert')
+                .setRunHandler(function(event){
+                    //SOMETHING TO DO
+                    alert('alert ~');
+                })
+   );
    ```
    
 3. .addMenuBoard(ID, CONDITION, MENU_ID_LIST)    
@@ -97,21 +104,64 @@ For convenience, 1-1 code, which loads and creates a Library in the example, is 
     </body>
   
     <script>
-        menuman.setTheme('test-1');      
-        menuman.addMenu('menu-console', 'Console', function(element){
-            console.log('Hello  ' + element.innerHTML); 
-        });
-        menuman.addMenu('menu-alert', 'Alert', function(element){
-            alert('Hello  ' + element.innerHTML);
-        });
-        menuman.addMenu('menu-nothing', 'Nothing', function(element){
-            //None
-        });
-        menuman.addMenu('menu-1', 'Print', function(element){
-            console.log('Print', element);
-        });
-        menuman.addMenuBoard('board-a', [{'class':'*icon*'}], ['menu-console', 'menu-alert']);
-        menuman.addMenuBoard('board-b', [{'id':'test001'}], ['menu-nothing']);
-        menuman.addMenuBoard('board-c', [{'id':'*02'}], ['menu-1']);
+        var menuman = new MenuMan();
+
+        menuman.setTheme('test-1');
+
+        menuman.addMenu(
+            new MenuMan.Menu('menu-console').setTitle('console')
+                .setRunHandler(function(event){
+                    console.log('console ~');
+                }),
+
+            new MenuMan.Menu('menu-alert').setTitle('alert')
+                .setRunHandler(function(event){
+                    alert('alert ~');
+                }),
+
+            new MenuMan.Menu('menu-nothing').setTitle('nothing')
+                .setRunHandler(function(event){
+                    //none
+                }),
+
+            new MenuMan.Menu('menu-sometimes-disabled').setTitle('some-time disabled')
+                .setDisabledStateHandler(function(event){
+                    return !!(new Date().getTime() % 2)
+                })
+                .setRunHandler(function(event){
+                    alert("You are lucky :D");
+                }),
+
+            new MenuMan.Menu('menu-sometimes-show').setTitle('some-time show')
+                .setBoardLoadValidateHandler(function(event){
+                    return !!(new Date().getTime() % 2)
+                })
+                .setRunHandler(function(event){
+                    alert("You are lucky :D");
+                }),
+
+            new MenuMan.Menu('menu-search').setTitle('search something')
+                .setBoardLoadValidateHandler(function(event){
+                    console.log("[Check selection-text]", menuman.getSelectionText());
+                    return menuman.getSelectionText() != '';
+                })
+                .setBoardLoadHandler(function(event){
+                    var text = menuman.getSelectionText();
+                    text = (text.length < 20) ? text : (text.substring(0,17) + "...");
+                    event.menu.element.innerHTML = ('🔍 search \'' +text+ '\'');
+                })
+                .setRunHandler(function(event){
+                    //none
+                    alert("Faield to search '"+menuman.getSelectionText()+"'. \nIt is not yet implemented.")
+                }),
+        );
+   
+        menuman.addMenuBoard(
+            new MenuMan.MenuBoard('board-a').setMenus('menu-console', 'menu-alert').setElementMatchCondition([{'class':'*icon*'}]),
+            new MenuMan.MenuBoard('board-b').setMenus('menu-nothing').setElementMatchCondition([{'id':'test001'}]),
+            new MenuMan.MenuBoard('board-c').setMenus('menu-non-exsits').setElementMatchCondition([{'id':'*02'}]),
+            new MenuMan.MenuBoard('first_ctx').setPriority(101).setMenus('menu-sometimes-show'),
+            new MenuMan.MenuBoard('second_ctx').setPriority(102).setMenus('menu-search', 'menu-alert', 'menu-sometimes-show', 'menu-sometimes-disabled'),
+        );
     </script>
     ```
